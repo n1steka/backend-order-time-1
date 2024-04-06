@@ -1,16 +1,12 @@
 const mongoose = require("mongoose");
-
 const itemSchema = new mongoose.Schema({
-  createUser: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    defualt: null,
+  huwaari: {
+    type: String,
   },
-  currentTime: {
-    type: Date,
-    default: Date.now(),
+  status: {
+    type: Boolean,
+    default: false,
   },
-
   Service: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Service",

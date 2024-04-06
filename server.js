@@ -11,9 +11,9 @@ const userRoutes = require("./routes/user");
 const serviceRoute = require("./routes/serviceRoute.js");
 const categoryRoute = require("./routes/categoryRoute.js");
 const subcategoryRoute = require("./routes/subcategoryRoute.js");
-const invoiceRoute = require("./routes/invoiceRoute.js");
+const itemRoute = require("./routes/itemRoute.js");
 const optRoute = require("./routes/optRoute.js");
-
+const customerRoutes = require("./routes/customerRoute.js");
 const errorHandler = require("./middleware/error.js");
 connectDB();
 const app = express();
@@ -23,11 +23,14 @@ app.use(express.json());
 
 // api handaltuud
 app.use("/api/v1/user", userRoutes);
+app.use("/api/v1/customer", customerRoutes);
 app.use("/api/v1/service", serviceRoute);
 app.use("/api/v1/category", categoryRoute);
 app.use("/api/v1/subcategory", subcategoryRoute);
 app.use("/api/v1/opt", optRoute);
-app.use("/api/v1/invoice", invoiceRoute);
+app.use("/api/v1/item", itemRoute);
+
+app.use("/api/v1/item", itemRoute);
 
 // app.use("/api/v1/withdraw", withdrawRoute);
 

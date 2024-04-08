@@ -1,18 +1,23 @@
 const mongoose = require("mongoose");
+
 const invoiceSchema = new mongoose.Schema({
     status: {
         type: Boolean,
-        default: false,
+        default: false
     },
-    Customer: {
+    customer: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Customer",
+        ref: "Customer"
     },
+    sender_invoice_id: {
+        type: String
+    },
+    qpay_invoice_id: String,
     createdAt: {
         type: Date,
-        default: new Date(),
+        default: Date.now
     }
 });
 
-const Item = mongoose.model("Invoice", invoiceSchema);
-module.exports = Item;
+const Invoice = mongoose.model("Invoice", invoiceSchema);
+module.exports = Invoice;

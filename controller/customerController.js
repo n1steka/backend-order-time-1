@@ -1,6 +1,5 @@
 const User = require("../models/customerModel");
 const asyncHandler = require("../middleware/asyncHandler");
-const user = require("../models/user");
 
 exports.getAllUser = asyncHandler(async (req, res, next) => {
   try {
@@ -25,10 +24,8 @@ exports.createUser = asyncHandler(async (req, res, next) => {
         error: "Утасны дугаар бүртгэлтэй байна",
       });
     }
-
     const inputData = {
       ...req.body,
-      photo: req.file?.filename ? req.file.filename : "no user photo",
     };
     const user = await User.create(inputData);
     const token = user.getJsonWebToken();
@@ -45,9 +42,7 @@ exports.createUser = asyncHandler(async (req, res, next) => {
 exports.Login = asyncHandler(async (req, res, next) => {
   try {
     const { phone, password } = req.body;
-
-    const userphone = await user.find({ phone: phone });
-
+    const userphone = await User.find({ phone: phone });
     if (!userphone) {
       return res
         .status(404)
@@ -60,25 +55,25 @@ exports.Login = asyncHandler(async (req, res, next) => {
         msg: "Утасны дугаар  болон нууц үгээ оруулна уу!",
       });
     } else {
-      const user = await User.findOne({ phone }).select("+password");
-      if (!user) {
+      const customer = await User.findOne({ phone }).select("+password");
+      if (!customer) {
         return res.status(400).json({
           success: false,
           msg: "Утасны дугаар  эсвэл нууц үг буруу байна!",
         });
       }
-      const isPasswordValid = await user.checkPassword(password);
+      const isPasswordValid = await customer.checkPassword(password);
       if (!isPasswordValid) {
         return res.status(400).json({
           success: false,
           msg: "Утасны дугаар  эсвэл нууц үг буруу байна!",
         });
       }
-      const token = user.getJsonWebToken();
+      const token = customer.getJsonWebToken();
       res.status(200).json({
         success: true,
         token,
-        data: user,
+        data: customer,
       });
     }
   } catch (error) {

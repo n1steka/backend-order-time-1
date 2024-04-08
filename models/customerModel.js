@@ -9,6 +9,9 @@ const customerSchema = new Schema({
     required: [true, "Утасны дугаар заавал бичнэ үү!"],
     maxlength: [8, "Утасны дугаар хамгийн ихдээ 8 оронтой байна!"],
   },
+  password: {
+    type: String
+  },
   resetPasswordToken: String,
   resetPasswordExpire: Date,
   createdAt: {

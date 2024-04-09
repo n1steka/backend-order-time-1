@@ -6,10 +6,14 @@ const fileSchema = new mongoose.Schema({
 });
 
 const serviceSchema = new Schema({
+  createUser: {
+    type : Schema.Types.ObjectId ,
+    ref : "User"
+  }, 
   name: {
     type: String,
   },
-  SubCategory: {
+  Category: {
     type: Schema.Types.ObjectId,
     ref: "SubCategory",
   },

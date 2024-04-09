@@ -14,8 +14,19 @@ const userSchema = new Schema({
     required: [true, "Утасны дугаар заавал бичнэ үү!"],
     maxlength: [8, "Утасны дугаар хамгийн ихдээ 8 оронтой байна!"],
   },
-
-  password: {
+  location : { 
+    type : String,
+  },
+  about : { 
+    type : String,
+  },
+  openTime : {
+    type : String,
+  } ,
+  closeTime : {
+    type : String,
+  },
+  password: { 
     type: String,
     required: [true, "Нууц үг бичнэ үү"],
     minlength: [8, "Нууц үгийн урт хамгийн багадаа  8 тэмдэгт байна"],

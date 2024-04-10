@@ -7,7 +7,7 @@ const fileSchema = new mongoose.Schema({
 
 const serviceSchema = new Schema({
   createUser: {
-    type : Schema.Types.ObjectId ,
+    type : mongoose.Schema.Types.ObjectId ,
     ref : "User"
   }, 
   name: {
@@ -42,3 +42,4 @@ const serviceSchema = new Schema({
 const Service = mongoose.model("Service", serviceSchema);
 
 module.exports = Service;
+ 

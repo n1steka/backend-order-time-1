@@ -2,15 +2,12 @@ const asyncHandler = require("../middleware/asyncHandler");
 const paginate = require("../utils/pagination");
 const Service = require("../models/serviceModel");
 const Item = require("../models/itemModel");
-
+const connectDB = require("../db")
 function calculateNumberOfServices(openTime, closeTime, currentTime) {
   openTime = new Date(openTime);
   closeTime = new Date(closeTime);
-
   let totalOperationalTime = (closeTime - openTime) / (1000 * 60);
-
   let numberOfServices = Math.ceil(totalOperationalTime / currentTime);
-
   const array = [];
   for (let i = 0; i < numberOfServices; i++) {
     const serviceTime = new Date(
@@ -21,6 +18,7 @@ function calculateNumberOfServices(openTime, closeTime, currentTime) {
   }
   return array;
 }
+
 
 exports.create = asyncHandler(async (req, res) => {
   try {
@@ -229,6 +227,18 @@ exports.getSubcategorySortItem = asyncHandler(async (req, res, next) => {
   }
 });
 
+
+exports.myUserServiceAll = asyncHandler(async (req, res) => {
+  try {
+    console.log("req user --------", req.userId);
+    const text = await Service.find({ createUser: req.userId });
+    return res.status(200).json({ data: text }); 
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+
 exports.findDelete = asyncHandler(async (req, res, next) => {
   try {
     const text = await Service.findByIdAndDelete(req.params.id, {
@@ -307,7 +317,7 @@ exports.getAll = asyncHandler(async (req, res) => {
     const data = await Service.find(query, select)
       .sort(sort)
       .skip(pagination.start - 1)
-      .limit(limit);
+      .limit(limit).populate("createUser")
     return res
       .status(200)
       .json({ success: true, pagination: pagination, data: data });

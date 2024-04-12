@@ -2,7 +2,7 @@ const asyncHandler = require("../middleware/asyncHandler");
 const paginate = require("../utils/pagination");
 const Service = require("../models/serviceModel");
 const Item = require("../models/itemModel");
-const connectDB = require("../db")
+
 function calculateNumberOfServices(openTime, closeTime, currentTime) {
   openTime = new Date(openTime);
   closeTime = new Date(closeTime);
